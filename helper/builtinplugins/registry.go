@@ -14,6 +14,7 @@ import (
 	dbElastic "github.com/hashicorp/vault-plugin-database-elasticsearch"
 	dbMongoAtlas "github.com/hashicorp/vault-plugin-database-mongodbatlas"
 	dbSnowflake "github.com/hashicorp/vault-plugin-database-snowflake"
+	logicalGpg "github.com/LeSuisse/vault-gpg-plugin/gpg"
 	logicalAd "github.com/hashicorp/vault-plugin-secrets-ad/plugin"
 	logicalAlicloud "github.com/hashicorp/vault-plugin-secrets-alicloud"
 	logicalAzure "github.com/hashicorp/vault-plugin-secrets-azure"
@@ -136,6 +137,7 @@ func newRegistry() *registry {
 			"terraform":    logicalTerraform.Factory,
 			"totp":         logicalTotp.Factory,
 			"transit":      logicalTransit.Factory,
+			"gpg":          logicalGpg.Factory,
 		},
 	}
 
