@@ -32,6 +32,7 @@ import (
 	credOkta "github.com/hashicorp/vault/builtin/credential/okta"
 	credRadius "github.com/hashicorp/vault/builtin/credential/radius"
 	credUserpass "github.com/hashicorp/vault/builtin/credential/userpass"
+	credGoogle "github.com/jetstack/vault-plugin-auth-google/google"
 	logicalAws "github.com/hashicorp/vault/builtin/logical/aws"
 	logicalCass "github.com/hashicorp/vault/builtin/logical/cassandra"
 	logicalConsul "github.com/hashicorp/vault/builtin/logical/consul"
@@ -90,6 +91,7 @@ func newRegistry() *registry {
 			"pcf":        credCF.Factory, // Deprecated.
 			"radius":     credRadius.Factory,
 			"userpass":   credUserpass.Factory,
+			"google":     credGoogle.Factory,
 		},
 		databasePlugins: map[string]BuiltinFactory{
 			// These four plugins all use the same mysql implementation but with
