@@ -65,6 +65,14 @@ const SUPPORTED_AUTH_BACKENDS = [
     displayNamePath: ['metadata.org', 'metadata.username'],
     formAttributes: ['token'],
   },
+  {
+    type: 'google',
+    typeDisplay: 'Google',
+    description: 'Google Apps Login.',
+    tokenPath: 'client_token',
+    displayNamePath: 'metadata.username',
+    formAttributes: [],
+  },
 ];
 
 export function supportedAuthBackends() {

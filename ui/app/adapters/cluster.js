@@ -110,10 +110,17 @@ export default ApplicationAdapter.extend({
     const { role, jwt, token, password, username, path } = data;
     const url = this.urlForAuth(backend, username, path);
     const verb = backend === 'token' ? 'GET' : 'POST';
+
+
     let options = {
       unauthenticated: true,
     };
-    if (backend === 'token') {
+    if (backend === 'google') {
+      const urlPrefix = path ? path : backend;
+      return this.ajax(`/v1/auth/${urlPrefix}/web_code_url`, 'GET', options).then(response => {
+        window.location.replace(response.data.url);
+      });
+    } else if (backend === 'token') {
       options.headers = {
         'X-Vault-Token': token,
       };
@@ -146,6 +153,7 @@ export default ApplicationAdapter.extend({
       okta: `login/${encodeURIComponent(username)}`,
       radius: `login/${encodeURIComponent(username)}`,
       token: 'lookup-self',
+      google: 'login',
     };
     const urlSuffix = authURLs[authBackend];
     const urlPrefix = path && authBackend !== 'token' ? path : authBackend;

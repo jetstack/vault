@@ -52,7 +52,8 @@ export default Controller.extend({
       if (
         this.activeClusterName &&
         this.auth.currentToken &&
-        this.router.currentRouteName !== 'vault.cluster.auth'
+        this.router.currentRouteName !== 'vault.cluster.auth' &&
+        this.router.currentRouteName !== 'vault.cluster.auth-callback'
       ) {
         return true;
       }

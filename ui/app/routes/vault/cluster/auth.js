@@ -6,6 +6,7 @@ export default ClusterRouteBase.extend({
   queryParams: {
     authMethod: {
       replace: true,
+      refreshModel: true
     },
   },
   flashMessages: service(),
@@ -16,7 +17,12 @@ export default ClusterRouteBase.extend({
       return this.version.fetchFeatures();
     });
   },
-  model() {
+  model(params) {
+    if (params.authMethod === 'google') {
+      let controller = this.controllerFor(this.routeName)
+      controller.set('callback', true);
+      controller.set('mountPath', params.mount_path);
+    }
     return this._super(...arguments);
   },
 

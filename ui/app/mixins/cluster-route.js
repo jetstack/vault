@@ -5,6 +5,7 @@ import RSVP from 'rsvp';
 const INIT = 'vault.cluster.init';
 const UNSEAL = 'vault.cluster.unseal';
 const AUTH = 'vault.cluster.auth';
+const AUTH_CALLBACK = 'vault.cluster.auth-callback';
 const CLUSTER = 'vault.cluster';
 const CLUSTER_INDEX = 'vault.cluster.index';
 const OIDC_CALLBACK = 'vault.cluster.oidc-callback';
@@ -12,7 +13,7 @@ const DR_REPLICATION_SECONDARY = 'vault.cluster.replication-dr-promote';
 const DR_REPLICATION_SECONDARY_DETAILS = 'vault.cluster.replication-dr-promote.details';
 const EXCLUDED_REDIRECT_URLS = ['/vault/logout'];
 
-export { INIT, UNSEAL, AUTH, CLUSTER, CLUSTER_INDEX, DR_REPLICATION_SECONDARY };
+export { INIT, UNSEAL, AUTH, AUTH_CALLBACK, CLUSTER, CLUSTER_INDEX, DR_REPLICATION_SECONDARY };
 
 export default Mixin.create({
   auth: service(),
@@ -61,6 +62,9 @@ export default Mixin.create({
   targetRouteName(transition) {
     const cluster = this.clusterModel();
     const isAuthed = this.authToken();
+    if (!isAuthed && transition && transition.targetName == AUTH_CALLBACK) {
+      return null;
+    }
     if (get(cluster, 'needsInit')) {
       return INIT;
     }
