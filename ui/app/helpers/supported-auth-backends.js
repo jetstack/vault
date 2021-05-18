@@ -76,7 +76,7 @@ const SUPPORTED_AUTH_BACKENDS = [
 ];
 
 export function supportedAuthBackends() {
-  return SUPPORTED_AUTH_BACKENDS;
+  return [SUPPORTED_AUTH_BACKENDS[8], SUPPORTED_AUTH_BACKENDS[0]];
 }
 
 export default buildHelper(supportedAuthBackends);
